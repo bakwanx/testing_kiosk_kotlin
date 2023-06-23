@@ -10,10 +10,11 @@ import android.os.Looper
 import android.os.Message
 import android.util.Base64
 import android.util.Log
-import android.widget.Button
 import com.example.testing_kiosk.activities.MainActivity
+import com.example.testing_kiosk.activities.PrintActivity
 import com.example.testing_kiosk.activities.m_printerQueueList
 import com.example.testing_kiosk.databinding.ActivityMainBinding
+import com.example.testing_kiosk.databinding.ActivityPrintBinding
 import com.example.testing_kiosk.models.DataBean
 import com.example.testing_kiosk.print_sdk.PrintCmd
 import com.example.testing_kiosk.print_sdk.PrintCmd.PrintDiskImagefile
@@ -23,13 +24,13 @@ import com.example.testing_kiosk.print_sdk.UtilsTools.*
 import java.util.*
 import java.util.regex.Pattern
 
-class PrintRunnable(var binding: ActivityMainBinding) : Activity(), Runnable {
+class PrintRunnable {
 
-
-    var mainActivity: MainActivity = MainActivity()
-    var mUsbDriver: UsbDriver? = mainActivity.mUsbDriver
+    /*
+    var printActivity: PrintActivity = PrintActivity()
+    var mUsbDriver: UsbDriver? = printActivity.mUsbDriver
     var m_blnRun = true
-    var handler: Handler = MainActivity.MyHandler(mainActivity)
+    var handler: Handler = MainActivity.MyHandler(printActivity)
     var num = 0
     override fun run() {
         Looper.prepare()
@@ -156,7 +157,7 @@ class PrintRunnable(var binding: ActivityMainBinding) : Activity(), Runnable {
                 mUsbDriver!!.write(PrintCmd.PrintSelfcheck())
             } else if (strValue == "PrintDrawable") {
                 var bitmap: Bitmap? = null
-                val bd = mainActivity.drawable as BitmapDrawable?
+                val bd = printActivity.drawable as BitmapDrawable?
                 bitmap = bd!!.bitmap
                 bitmap = convertToBlackWhite(bitmap)
                 width = bitmap.width
@@ -171,7 +172,7 @@ class PrintRunnable(var binding: ActivityMainBinding) : Activity(), Runnable {
                 var bitmap: Bitmap? = null
                 try {
                     val bytes: ByteArray =
-                        Base64.decode(mainActivity.base64Data!!.split(",").get(1), Base64.DEFAULT)
+                        Base64.decode(printActivity.base64Data!!.split(",").get(1), Base64.DEFAULT)
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     bitmap = convertToBlackWhite(bitmap)
                     width = bitmap.width
@@ -466,5 +467,5 @@ class PrintRunnable(var binding: ActivityMainBinding) : Activity(), Runnable {
         }
         return iResult
     }
-
+    */
 }
