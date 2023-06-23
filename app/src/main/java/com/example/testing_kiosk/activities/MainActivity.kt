@@ -180,9 +180,7 @@ class MainActivity : AppCompatActivity() {
     private fun initAction() {
 
         binding.btnPrint1.setOnClickListener {
-            dataBean.m_iFunID = 1
-            binding.editText2.getText()
-            m_printerQueueList.add(dataBean)
+            mUsbDriver!!.write(PrintCmd.PrintSelfcheck())
         }
         binding.btnPrint3.setOnClickListener {
             dataBean.m_iFunID = 3
@@ -210,7 +208,14 @@ class MainActivity : AppCompatActivity() {
 //                dataBean.m_iFunID = 7
 //                m_printerQueueList.add(dataBean)
 //            }
-            mUsbDriver!!.write(PrintCmd.PrintSelfcheck())
+            val str: String = binding.editText5.text.toString()
+            mUsbDriver!!.write(PrintCmd.SetClean()) // Inisialisasi, bersihkan cache
+            mUsbDriver!!.write(PrintCmd.SetReadZKmode(0))
+            mUsbDriver!!.write(PrintCmd.PrintString(str, 0))
+            mUsbDriver!!.write(PrintCmd.PrintFeedline(5)) // Cetak kertas 2 baris
+            if (binding.checkCut.isChecked()) {
+                mUsbDriver!!.write(PrintCmd.PrintCutpaper(0))
+            }
         }
         binding.btnGetStatus.setOnClickListener {
             val value: String = binding.spinner002.getSelectedItem().toString()
