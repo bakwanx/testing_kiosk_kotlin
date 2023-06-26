@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, ScanBarcodeActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnTestFingerprint.setOnClickListener {
+            val intent = Intent(this@MainActivity, FingerprintActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

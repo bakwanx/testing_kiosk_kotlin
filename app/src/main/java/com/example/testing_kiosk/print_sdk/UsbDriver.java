@@ -329,7 +329,8 @@ public class UsbDriver {
 
             if (mManager != null)
                 blnRes = mManager.hasPermission(m_Device[m_UsbDevIdx]);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return blnRes;
     }
 

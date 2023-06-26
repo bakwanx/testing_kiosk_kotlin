@@ -74,6 +74,7 @@ class PrintActivity : AppCompatActivity() {
 
     }
 
+
     private var mUsbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
@@ -128,27 +129,23 @@ class PrintActivity : AppCompatActivity() {
 
         }
         binding.btnGetStatus.setOnClickListener {
-            val value: String = binding.spinner002.getSelectedItem().toString()
-            if (value == "GetDevices") {
-                checkDevices()
-            } else {
-                val iDriverCheck = usbDriverCheck()
-                if (iDriverCheck == -1) {
-                    showMessage("Printer not connected!")
-                    return@setOnClickListener
-                }
-                if (iDriverCheck == 1) {
-                    showMessage("Printer unauthorized!")
-                    return@setOnClickListener
-                }
-                if (value == "GetStatus") {
-                    dataBean.m_iFunID = 2
-                    m_printerQueueList.add(dataBean)
-                } else if (value == "GetCashbox") {
-                    dataBean.m_iFunID = 9
-                    m_printerQueueList.add(dataBean)
-                }
+
+            val iDriverCheck = usbDriverCheck()
+            if (iDriverCheck == -1) {
+                showMessage("Printer not connected!")
+                return@setOnClickListener
             }
+            if (iDriverCheck == 1) {
+                showMessage("Printer unauthorized!")
+                return@setOnClickListener
+            }
+//            if (value == "GetStatus") {
+//                dataBean.m_iFunID = 2
+//                m_printerQueueList.add(dataBean)
+//            } else if (value == "GetCashbox") {
+//                dataBean.m_iFunID = 9
+//                m_printerQueueList.add(dataBean)
+//            }
         }
         binding.editText2.setText("")
         binding.editText5.setText("Coba printtttttttttt")
@@ -239,6 +236,7 @@ class PrintActivity : AppCompatActivity() {
         filter.addAction(ACTION_USB_PERMISSION)
         this.registerReceiver(mUsbReceiver, filter)
 
+        checkDevices()
     }
 
     @Throws(IOException::class)
