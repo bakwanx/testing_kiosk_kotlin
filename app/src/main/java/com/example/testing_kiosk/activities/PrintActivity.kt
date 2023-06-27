@@ -25,7 +25,6 @@ import com.example.testing_kiosk.databinding.ActivityPrintBinding
 import com.example.testing_kiosk.models.DataBean
 import com.example.testing_kiosk.print_sdk.PrintCmd
 import com.example.testing_kiosk.print_sdk.UsbDriver
-import kotlinx.coroutines.*
 import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
@@ -71,6 +70,7 @@ class PrintActivity : AppCompatActivity() {
         initAction()
 //        initAlertDialog()
 //        runThread()
+
 
     }
 
@@ -203,7 +203,7 @@ class PrintActivity : AppCompatActivity() {
     }
 
     private fun init() {
-
+        checkDevices()
         val spinner: Spinner = binding.spinner002
         val adapter002: ArrayAdapter<String> =
             ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, m_nStr_002)
@@ -213,21 +213,27 @@ class PrintActivity : AppCompatActivity() {
 
         mUsbDriver = UsbDriver(getSystemService(USB_SERVICE) as UsbManager, this)
         var permissionIntent: PendingIntent?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            permissionIntent = PendingIntent.getBroadcast(
-                this,
-                0,
-                Intent(ACTION_USB_PERMISSION),
-                PendingIntent.FLAG_MUTABLE
-            )
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            permissionIntent = PendingIntent.getBroadcast(
+//                this,
+//                0,
+//                Intent(ACTION_USB_PERMISSION),
+//                PendingIntent.FLAG_MUTABLE
+//            )
+//        } else {
+//            permissionIntent = PendingIntent.getBroadcast(
+//                this,
+//                0,
+//                Intent(ACTION_USB_PERMISSION),
+//                PendingIntent.FLAG_ONE_SHOT
+//            )
+//        }
             permissionIntent = PendingIntent.getBroadcast(
                 this,
                 0,
                 Intent(ACTION_USB_PERMISSION),
                 PendingIntent.FLAG_ONE_SHOT
             )
-        }
         mUsbDriver!!.setPermissionIntent(permissionIntent)
 
         // Broadcast listen for new devices

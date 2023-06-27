@@ -1,9 +1,6 @@
 package com.example.testing_kiosk.activities
 
-import android.app.PendingIntent
-import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AppCompatActivity
