@@ -5,16 +5,19 @@ plugins {
 
 android {
     namespace 'com.example.testing_kiosk'
-    compileSdk 30
+    compileSdk 28
 
     defaultConfig {
         applicationId "com.example.testing_kiosk"
-        minSdk 24
-        targetSdk 30
+        minSdk 21
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk 28
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a'
     }
 
     buildTypes {
@@ -23,6 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    ndkVersion '21.4.7075529'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.72"
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -56,4 +60,11 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpcore:4.4.4'
 
     implementation files('libs/release.aar')
+
+//    //noinspection AnnotationProcessorOnCompilePath,GradleDependency
+//    implementation 'com.jakewharton:butterknife:8.6.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+//
+    //noinspection GradleDependency
+//    implementation 'me.zhanghai.android.effortlesspermissions:library:1.1.0'
 }

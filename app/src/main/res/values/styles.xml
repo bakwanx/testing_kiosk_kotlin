@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryDark">@color/green_700</item>
+        <item name="colorAccent">@color/green_600</item>
+    </style>
+
+    <style name="main_marginEnd">
+        <item name="android:layout_alignEnd">@dimen/vertical_margin</item>
+    </style>
+
+    <style name="main_button" parent="android:Widget.Button">
+    </style>
+</resources>

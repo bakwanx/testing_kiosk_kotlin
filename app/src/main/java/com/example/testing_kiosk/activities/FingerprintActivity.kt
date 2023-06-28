@@ -2,6 +2,8 @@ package com.example.testing_kiosk.activities
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AppCompatActivity
 import com.dt.sdk.fps.DtFpScanner
@@ -20,15 +22,43 @@ class FingerprintActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFingerprintBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        onCheck()
-        binding.mainBtnInitialize.setOnClickListener {
-            showMessage(mFpScanner.isOpened.toString())
-            mFpScanner.start()
-//            if(mFpScanner.openDevice()){
-//                showMessage("Usb Fingerprint Found")
-//            }
+        init()
+
+        binding.mainBtnStart.setOnClickListener {
+
+            try{
+                mFpScanner.openDevice()
+                mFpScanner.start()
+//                val isOpened = mFpScanner.isOpened
+//                if (isOpened) {
+//                    // Start scan.
+//                    mFpScanner.start()
+//                    showMessage("Usb device is opened")
+//                } else {
+//                    showMessage("USB Devices not found")
+//                }
+            }catch (e: Exception){
+                showMessage(e.toString())
+            }
+
         }
 
+        binding.mainBtnStop.setOnClickListener {
+            mFpScanner.stop()
+        }
+        //error disini
+        try {
+            val isOpen = mFpScanner.openDevice()
+            if(isOpen){
+                val isOpened = mFpScanner.isOpened
+                showMessage("First : ${isOpen}, Result : ${isOpened}")
+            }else{
+                showMessage("First : ${isOpen}, Result :false")
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
+            showMessage("Error bang : ${e.toString()}")
+        }
 
     }
 
@@ -38,12 +68,12 @@ class FingerprintActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        super.onStart()
         mFpScanner.openDevice()
+        super.onStart()
     }
 
 
-    fun onCheck(){
+    fun init(){
         mFpScanner = DtFpScanner(this, object : ICaptureCallback {
             @WorkerThread
             override fun onCaptureCallback(
@@ -105,4 +135,18 @@ class FingerprintActivity : AppCompatActivity() {
                 showMessage("On Error FP" + e.toString())
             }
         }
+
+    fun onTryConnect(view: View) {
+        try {
+            if (mFpScanner.openDevice()) {
+                view.isEnabled = false
+                binding.mainBtnRelease.isEnabled = true
+
+            } else {
+                showMessage("No available USB devices is find")
+            }
+        } catch (e: Exception) {
+            showMessage("Error onTryConnect : ${e.toString()}")
+        }
+    }
 }

@@ -61,7 +61,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:enabled="false"
                     android:onClick="onStart"
                     android:text="start"
                     android:textSize="10sp"/>
@@ -80,7 +79,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:enabled="false"
                     android:onClick="onStop"
                     android:text="stop"
                     android:textSize="10sp" />
