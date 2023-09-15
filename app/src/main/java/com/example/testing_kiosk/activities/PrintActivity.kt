@@ -213,27 +213,18 @@ class PrintActivity : AppCompatActivity() {
 
         mUsbDriver = UsbDriver(getSystemService(USB_SERVICE) as UsbManager, this)
         var permissionIntent: PendingIntent?
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-//            permissionIntent = PendingIntent.getBroadcast(
-//                this,
-//                0,
-//                Intent(ACTION_USB_PERMISSION),
-//                PendingIntent.FLAG_MUTABLE
-//            )
-//        } else {
+        permissionIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            Intent(ACTION_USB_PERMISSION),
+            PendingIntent.FLAG_ONE_SHOT
+        )
 //            permissionIntent = PendingIntent.getBroadcast(
 //                this,
 //                0,
 //                Intent(ACTION_USB_PERMISSION),
 //                PendingIntent.FLAG_ONE_SHOT
 //            )
-//        }
-            permissionIntent = PendingIntent.getBroadcast(
-                this,
-                0,
-                Intent(ACTION_USB_PERMISSION),
-                PendingIntent.FLAG_ONE_SHOT
-            )
         mUsbDriver!!.setPermissionIntent(permissionIntent)
 
         // Broadcast listen for new devices
